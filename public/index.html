@@ -1,0 +1,40 @@
+<!-- Lista de películas -->
+<ul>
+    <li><a href="#" data-toggle="modal" data-target="#myModal" data-id="1">Película 1</a></li>
+    <li><a href="#" data-toggle="modal" data-target="#myModal" data-id="2">Película 2</a></li>
+    <li><a href="#" data-toggle="modal" data-target="#myModal" data-id="3">Película 3</a></li>
+    <!-- Agrega más películas aquí -->
+  </ul>
+  
+  <!-- Modal view -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title" id="myModalLabel">Detalles de la película</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="movie-details"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Script para cargar los detalles de la película en el modal view -->
+  <script>
+    $(document).ready(function() {
+      $('a[data-toggle="modal"]').click(function() {
+        var movieId = $(this).data('id');
+        $.ajax({
+          url: '/peliculas/' + movieId,
+          type: 'GET',
+          success: function(response) {
+            $('#movie-details').html(response);
+          }
+        });
+      });
+    });
+  </script>
